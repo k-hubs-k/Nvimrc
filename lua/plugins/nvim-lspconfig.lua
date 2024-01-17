@@ -24,6 +24,7 @@ local config = function()
 	lspconfig["html"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+		filetypes = { "html", "javascriptreact", "typescriptreact" },
 	})
 
 	-- typescript
@@ -36,6 +37,7 @@ local config = function()
 	lspconfig["cssls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+		validate = true,
 	})
 
 	-- markdown
@@ -54,7 +56,7 @@ local config = function()
 	lspconfig["emmet_ls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
-		filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+		filetypes = { "sass", "scss", "less", "svelte" },
 	})
 
 	-- Lua

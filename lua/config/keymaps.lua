@@ -9,15 +9,18 @@ keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 opts.desc = format("Exit", "Quit")
 keymap.set("n", "<leader>q", ":q<CR>", { noremap = true, silent = true })
 
--- Directory Navigation
-opts.desc = format("FileTree", "File explorer")
-keymap.set("n", "<leader>f", ":Neotree<CR>", opts)
-
 -- Pane navigation
 keymap.set("n", "<C-h>", "<C-w>h", opts) -- Navigate Left
 keymap.set("n", "<C-j>", "<C-w>j", opts) -- Navigate Down
 keymap.set("n", "<C-k>", "<C-w>k", opts) -- Navigate Up
 keymap.set("n", "<C-l>", "<C-w>l", opts) -- Navigate Right
+
+-- Directory Navigation
+opts.desc = format("FileTree", "File explorer")
+keymap.set("n", "<leader>f", ":NvimTreeToggle<CR>", opts)
+
+opts.desc = format("FileTree", "Open File explorer")
+keymap.set("n", "<leader>o", ":NvimTreeOpen<CR>", opts)
 
 -- Window management
 opts.desc = format("Vertical", "Split Window Vertically")
