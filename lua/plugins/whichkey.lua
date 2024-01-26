@@ -1,5 +1,9 @@
 return {
 	"folke/which-key.nvim",
 	lazy = false,
-  opts = {}
+	opts = {
+		window = {
+			border = "single",
+		},
+	},
 }

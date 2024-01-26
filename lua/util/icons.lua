@@ -103,6 +103,10 @@ M.icons = {
 	BookmarkSearch = "󰺄",
 	Hint = "",
 	Download = "󰇚",
+	Inspect = "",
+	Definition = "󰬴",
+	Action = "󰅫",
+	Debug = "",
 }
 
 M.format = function(icon, text)

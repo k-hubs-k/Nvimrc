@@ -6,14 +6,15 @@ return {
 		require("transparent").setup({
 			groups = {
 				"Normal",
-				"NormalINC",
+				"NormalNC",
 				"Comment",
+				"Constant",
 				"Special",
 				"Identifier",
 				"Statement",
 				"PreProc",
 				"Type",
-				"Underlinded",
+				"Underlined",
 				"Todo",
 				"String",
 				"Function",
@@ -26,11 +27,16 @@ return {
 				"SignColumn",
 				"CursorLineNr",
 				"EndOfBuffer",
+				"InsertEnter",
 			},
 			extra_groups = {
 				"NormalFloat",
-				"",
+				"CursorLine",
+				"TablineFill",
 			},
 		})
+		require("transparent").clear_prefix("NvimTree")
+		require("transparent").clear_prefix("BufferLine")
+		require("transparent").clear_prefix("cmp")
 	end,
 }

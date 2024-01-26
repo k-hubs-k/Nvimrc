@@ -5,9 +5,6 @@ return {
 	dependencies = "nvim-tree/nvim-web-devicons",
 	opts = {
 		options = {
-			diagnostics = "nvim_lsp",
-			diagnostics_update_in_insert = true,
-			diagnostics_indicator = nil,
 			indicator = "none",
 			offsets = {
 				{

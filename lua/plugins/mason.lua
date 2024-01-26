@@ -35,6 +35,9 @@ return {
 				"prismals",
 				"pyright",
 				"jdtls",
+				"bashls",
+				"clangd",
+				"taplo",
 			},
 			-- auto install language server
 			automatic_installation = true,
