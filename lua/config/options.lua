@@ -6,6 +6,7 @@ opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.expandtab = true
 opt.smartindent = true
+opt.smartcase = true
 opt.wrap = false
 
 -- Search
@@ -16,11 +17,12 @@ opt.hlsearch = false
 -- Appearance
 opt.relativenumber = true
 opt.number = true
-opt.colorcolumn = "100"
 opt.signcolumn = "yes"
+opt.colorcolumn = "100"
 opt.cmdheight = 1
 opt.scrolloff = 10
 opt.completeopt = "menuone,noinsert,noselect"
+opt.cursorline = true
 
 --Behaviour
 opt.hidden = true
@@ -37,3 +39,13 @@ opt.iskeyword:append("-")
 opt.mouse:append("a")
 opt.clipboard:append("unnamedplus")
 opt.modifiable = true
+opt.updatetime = 200
+
+-- mouse
+opt.mouse = ""
+
+--fold
+opt.foldcolumn = "0"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true

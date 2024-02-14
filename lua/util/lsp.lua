@@ -11,7 +11,7 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", opts)
 
 	opts.desc = format("Definition", "Go to declaration")
-	vim.keymap.set("n", "<leader>gd", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "<leader>gd", ":Telescope lsp_document_symbols<CR>", opts)
 
 	opts.desc = format("Definition", "Go to lsp definitions")
 	vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
@@ -38,7 +38,7 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
 
 	-- hover (what is under cursor)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+	vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
 
 	opts.desc = format("Restart", "Restart LSP")
 	vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)

@@ -10,9 +10,9 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
 
-		-- Enable mason and configure icons
 		mason.setup({
 			ui = {
+				border = "rounded",
 				icons = {
 					package_installed = "✓",
 					package_pending = "➜",
@@ -30,16 +30,13 @@ return {
 				"tailwindcss",
 				"svelte",
 				"lua_ls",
-				"graphql",
 				"emmet_ls",
-				"prismals",
 				"pyright",
 				"jdtls",
 				"bashls",
-				"clangd",
 				"taplo",
+				"intelephense",
 			},
-			-- auto install language server
 			automatic_installation = true,
 		})
 

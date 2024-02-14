@@ -1,85 +1,113 @@
-local config = function()
-	local cmp = require("cmp")
-	local luasnip = require("luasnip")
-
-	require("luasnip.loaders.from_vscode").lazy_load()
-	local lspkind = require("lspkind")
-
-	cmp.setup({
-		completion = {
-			completeopt = "menu,menuone,preview,noselect",
-		},
-		snippet = {
-			expand = function(args)
-				luasnip.lsp_expand(args.body)
-			end,
-		},
-		mapping = cmp.mapping.preset.insert({
-			["<C-k>"] = cmp.mapping.select_prev_item(),
-			["<C-j>"] = cmp.mapping.select_next_item(),
-			["<C-b>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(), -- Manually show suggestions
-			["<C-e>"] = cmp.mapping.abort(), -- close completion
-			["<CR>"] = cmp.mapping.confirm({ select = true }),
-		}),
-		-- Sources of autocompletion
-		sources = cmp.config.sources({
-			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
-			{ name = "path" },
-			{ name = "buffer" },
-		}),
-		-- configure lspking for vs-code like icons
-		formatting = {
-			format = lspkind.cmp_format({
-				maxwidth = 50,
-				ellipsis_char = "...",
-			}),
-		},
-	})
-	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-	cmp.setup.cmdline({ "/", "?" }, {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{ name = "buffer" },
-		},
-	})
-
-	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-	cmp.setup.cmdline(":", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = "path" },
-		}, {
-			{ name = "cmdline" },
-		}),
-	})
-
-	-- Set up lspconfig.
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-	require("lspconfig")["cssls"].setup({
-		capabilities = capabilities,
-	})
-end
-
 return {
-	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
-	config = config,
-	dependencies = {
-		"hrsh7th/cmp-buffer", -- buffer completions
-		"hrsh7th/cmp-path", -- path completions
+	{
 		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
-		"rafamadriz/friendly-snippets",
-		"onsails/lspkind.nvim",
-		"hrsh7th/cmp-vsnip", -- snippet completions
-		"hrsh7th/vim-vsnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		event = "InsertEnter",
+		build = "make install_jsregexp",
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
+	},
+	{
 		"hrsh7th/nvim-cmp",
-		"hrsh7th/cmp-cmdline", -- cmdline completions
-		"hrsh7th/cmp-nvim-lsp", -- lsp completions
-		"hrsh7th/cmp-nvim-lua", -- neovim lua api completions
+		event = { "InsertEnter", "CmdlineEnter" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind-nvim",
+			"windwp/nvim-autopairs",
+		},
+		opts = function()
+			local cmp = require("cmp")
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
+				}),
+			})
+
+			local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+			local snip_status_ok, luasnip = pcall(require, "luasnip")
+
+			if not snip_status_ok then
+				return
+			end
+
+			local win_conf = cmp.config.window.bordered({
+				winhighlight = "FloatBorder:FloatBorder",
+				scrollbar = false,
+			})
+
+			return {
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				window = {
+					completion = win_conf,
+					documentation = win_conf,
+				},
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp", priority = 1000 },
+					{ name = "crates", priority = 1000 },
+					{ name = "vim-dadbod-completion", priority = 1000 },
+					{ name = "luasnip", priority = 750 },
+					{ name = "buffer", priority = 500 },
+					{ name = "path", priority = 250 },
+				}),
+				mapping = {
+					["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+					["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+					["<C-y>"] = cmp.config.disable,
+					["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				},
+
+				formatting = {
+					format = lspkind_status_ok and lspkind.cmp_format({
+						mode = "symbol",
+						maxwidth = 25,
+						ellipsis_char = "...",
+					}),
+				},
+			}
+		end,
 	},
 }

@@ -1,0 +1,3 @@
+#removing redundant elements
+
+{ mixed: { pair: true, array: [value1, value2] } }
