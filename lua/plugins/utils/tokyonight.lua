@@ -1,5 +1,8 @@
 local config = function()
-	require("tokyonight").setup({
+	local tokyonight = require("tokyonight")
+	vim.cmd("colorscheme tokyonight")
+	vim.cmd("Twilight")
+	tokyonight.setup({
 		on_highlights = function(hl, c)
 			hl.TelescopeNormal = {
 				bg = c.bg_dark,

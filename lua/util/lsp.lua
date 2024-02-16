@@ -28,7 +28,7 @@ M.on_attach = function(client, bufnr)
 	opts.desc = "Rename"
 	vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
 
-	opts.desc = "Buffer diagnostic"
+	opts.desc = format("NextBuffer", "Buffer diagnostic")
 	vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
 	opts.desc = format("Debug", "Line Diagnostic")
@@ -38,6 +38,7 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
 
 	-- hover (what is under cursor)
+	opts.desc = format("Book", "Hover")
 	vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
 
 	opts.desc = format("Restart", "Restart LSP")

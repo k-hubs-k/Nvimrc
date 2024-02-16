@@ -22,6 +22,9 @@ keymap.set("n", "<C-k>", "<C-w>k", opts) -- Navigate Up
 opts.desc = format("Right", "Right window")
 keymap.set("n", "<C-l>", "<C-w>l", opts) -- Navigate Right
 
+opts.desc = format("Window", "Maximize this window")
+keymap.set("n", "<leader>mm", ":MaximizerToggle<CR>", opts) -- Navigate Right
+
 -- Top Search
 opts.desc = format("Stop", "Stop research")
 keymap.set("n", "<leader>nh", ":nohlsearch<CR>", opts)
@@ -32,6 +35,10 @@ keymap.set("n", "<leader>h", ":NvimTreeToggle<CR>", opts)
 
 opts.desc = format("FileTree", "Open File explorer")
 keymap.set("n", "<leader>o", ":NvimTreeOpen<CR>", opts)
+
+-- Hightlighting
+opts.desc = format("Twilight", "Twilight")
+keymap.set("n", "<leader> ", ":Twilight<CR>", opts)
 
 -- Buffer navigation
 opts.desc = format("Swap", "Pick buffer")
@@ -62,6 +69,9 @@ keymap.set("n", "<leader>>", "<C-w>5>", opts)
 
 opts.desc = format("Window", "Decrease width")
 keymap.set("n", "<leader><", "<C-w>5<", opts)
+
+opts.desc = format("Window", "Switch window")
+keymap.set("n", "<leader>ù", ":lua require('util.win').open_lua_win()<CR>", opts)
 
 -- Selection
 keymap.set("n", "<C-a>", "ggVG", opts)
@@ -117,3 +127,31 @@ keymap.set("n", "<leader>M", ":Mason<CR>", opts)
 
 opts.desc = "Lazy"
 keymap.set("n", "<leader>L", ":Lazy<CR>", opts)
+
+-- DAP
+opts.desc = format("Toggle", "Toggle debugger UI")
+keymap.set("n", "<leader>do", ":lua require('dapui').toggle()<CR>", opts)
+
+opts.desc = format("Stop", "Terminate session")
+keymap.set("n", "<leader>dr", ":DapTerminate<CR>", opts)
+
+opts.desc = format("Toggle", "Toggle breakpoint")
+keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", opts)
+
+opts.desc = format("Toggle", "Toggle breakpoint")
+keymap.set("n", "<F9>", ":DapToggleBreakpoint<CR>", opts)
+
+opts.desc = format("Popup", "Debugger hover")
+keymap.set("n", "<leader>dh", ":lua require('dapui').hover()<CR>", opts)
+
+opts.desc = "Continue session"
+keymap.set("n", "<F5>", ":DapContinue<CR>", opts)
+
+opts.desc = format("Breakpoint", "List breakpoints")
+keymap.set("n", "<leader>dB", ":lua require('telescope').extensions.dap.list_breakpoints()<CR>", opts)
+
+opts.desc = format("Variable", "List variables")
+keymap.set("n", "<leader>dB", ":lua require('telescope').extensions.dap.variables()<CR>", opts)
+
+opts.desc = format("Command", "List commands")
+keymap.set("n", "<leader>dc", ":lua require('telescope').extensions.dap.commands()<CR>", opts)

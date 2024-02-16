@@ -3,6 +3,7 @@ return {
 	event = {
 		"BufReadPre",
 		"BufNewFile",
+		"InsertLeave",
 	},
 	config = function()
 		local lint = require("lint")
@@ -12,8 +13,7 @@ return {
 			typescript = { "eslint_d" },
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
-			svelte = { "eslint_d" },
-			python = { "pylint" },
+			python = { "ruff" },
 			yaml = { "shellcheck" },
 			-- java = { "checkstyle" },
 			php = { "phpmd" },
@@ -27,7 +27,7 @@ return {
 			end,
 		})
 
-		vim.keymap.set("n", "<leader>l", function()
+		vim.keymap.set("n", "<leader>ll", function()
 			lint.try_lint()
 		end, { desc = "Trigger linting for current file", noremap = true, silent = true })
 	end,

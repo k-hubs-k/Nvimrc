@@ -24,25 +24,28 @@ return {
 		mason_lspconfig.setup({
 			-- Server list
 			ensure_installed = {
-				"tsserver",
 				"html",
+				"tsserver",
 				"cssls",
+				"marksman",
 				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"emmet_ls",
-				"pyright",
-				"jdtls",
+				"jsonls",
 				"bashls",
-				"taplo",
-				"intelephense",
+				"gopls",
+				"taplo", -- toml lsp
+				"emmet_language_server",
+				"vimls",
+				"intelephense", -- php lsp
+				"lua_ls",
+				"pyright",
+				"jdtls", -- java lsp
 			},
 			automatic_installation = true,
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
+				"prettier",
 				"stylua", --lua formatter
 				"isort", -- python formatter
 				"black", -- python formatter

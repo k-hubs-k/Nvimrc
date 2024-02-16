@@ -19,7 +19,7 @@ return {
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
-				php = { "pretty-php", "prettier" },
+				php = { "prettier" },
 				shell = { "shfmt" },
 			},
 			format_on_save = {

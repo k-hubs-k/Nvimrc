@@ -13,6 +13,7 @@ return {
 		},
 	},
 	{
+		--fold
 		"kevinhwang91/nvim-ufo",
 		event = "BufEnter",
 		dependencies = {
@@ -65,6 +66,7 @@ return {
 		lazy = false,
 	},
 	{
+		-- toggle boolean values
 		"rmagatti/alternate-toggler",
 	},
 }

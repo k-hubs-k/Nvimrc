@@ -1,3 +1,4 @@
+-- Color picker
 return {
 	"uga-rosa/ccc.nvim",
 	cmd = {

@@ -45,7 +45,7 @@ return {
 			end
 
 			local win_conf = cmp.config.window.bordered({
-				winhighlight = "FloatBorder:FloatBorder",
+				-- winhighlight = "FloatBorder:FloatBorder",
 				scrollbar = false,
 			})
 

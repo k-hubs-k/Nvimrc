@@ -34,7 +34,7 @@ local config = function()
 		filetypes = { "html", "javascriptreact", "typescriptreact", "php" },
 	})
 
-	-- typescript
+	-- typescript, javascript
 	lspconfig["tsserver"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -135,9 +135,12 @@ local config = function()
 		},
 	})
 
-	capabilities = capabilities, lspconfig.jdtls.setup({
+	lspconfig["jdtls"].setup({
 		on_attach = on_attach,
+		capabilities = capabilities,
 	})
+
+	capabilities = capabilities
 end
 
 return {
